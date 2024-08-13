@@ -4,9 +4,12 @@ from PIL import Image
 tools = pyocr.get_available_tools()
 tool = tools[0]
 
+image = Image.open('./assets/qruppo.png').convert("L")
+image.point(lambda x: 0 if x < 128 else x)
+
 txt = tool.image_to_string(
-    Image.open('./assets/kurohitsugi.png'),
-    lang='jpn+eng',
+    image,
+    lang='jpn',
     builder=pyocr.builders.TextBuilder(tesseract_layout=6)
 )
 
